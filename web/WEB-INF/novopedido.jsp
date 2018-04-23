@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Codigos.Produto"%>
+<%@page import="Codigos.MainServlet"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,7 +37,7 @@
                 <tr>
                     <td> <p>Produto: </p> <select name="itens" size="1">
                             <option>Selecione</option>
-                            <option>Agua</option>
+                            <option><%=MainServlet.getByCod(1)%></option>
                             <option>Refrigerante</option>
                         </select>
                     </td>
