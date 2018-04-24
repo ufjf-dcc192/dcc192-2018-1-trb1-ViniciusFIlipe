@@ -11,7 +11,7 @@ package Codigos;
  */
 public class Produto {
 
-    private static int codigo = 0;
+    private  int codigo;
     private String descricao;
     private float vlrUnit;
 
@@ -30,12 +30,12 @@ public class Produto {
     public Produto() {
     }
 
-    public static int getCodigo() {
+    public  int getCodigo() {
         return codigo;
     }
 
-    public static void setCodigo(int codigo) {
-        Produto.codigo = codigo;
+    public void setCodigo(int codigo) {
+       this.codigo = codigo;
     }
 
     public String getDescricao() {
