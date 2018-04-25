@@ -19,15 +19,16 @@ public class Pedido {
     private String cliente;
     private String abertura;
     private String fechamento;
+    private Float vlrtotal;
 
-    public Pedido(Integer id, Integer idmesa, List<Produto> produto, String cliente, String abertura) {
+    public Pedido(Integer id, Integer idmesa, String cliente, String abertura) {
         this.id = id;
         this.idmesa = idmesa;
-        this.produto = produto;
+        this.produto = null;
         this.cliente = cliente;
         this.abertura = abertura;
     }
-
+      
     public Integer getId() {
         return id;
     }

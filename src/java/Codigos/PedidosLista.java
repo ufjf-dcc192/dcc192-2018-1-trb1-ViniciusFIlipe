@@ -13,7 +13,6 @@ import java.util.Date;
  * @author Vinicius
  */
 public class PedidosLista {
-    private static ArrayList<Produto> produtosPedido;
     private static ArrayList<Pedido> pedidos;
     private static Integer i;
      public static ArrayList<Pedido> getInstancePedidos() {
@@ -26,4 +25,13 @@ public class PedidosLista {
         }
         return pedidos;
     }
+      public static void setcodigo(){
+        
+        for (int i =0;i<pedidos.size();i++) {
+            pedidos.get(i).setId(i);
+           // produto.setCodigo(i);
+        }
+    
+    }
+     
 }

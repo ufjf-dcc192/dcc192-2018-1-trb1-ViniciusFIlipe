@@ -38,20 +38,20 @@
 
                 </tr>
                 <tr>
-                    <td> <p>Produto: </p> <select name="itens" size="1">
-                            <option>- Selecione -</option>
-                            <%
+                    <td><form method="POST"> <p>Produto: </p> <select name="itens" size="1">
+                                <option>- Selecione -</option>
+                                <%
 
-                                for (Produto produtos : (List<Produto>) request.getAttribute("produtos")) {
-                            %> 
-                            <%--<c:forEach var="prod" items="${produtos}">  --%>              
-                            <option value="<%=produtos.getCodigo()%>" onselect=""><%=produtos.getCodigo()%>-<%=produtos.getDescricao()%> -R$ <%=produtos.getVlrUnit()%></option>  
-                            <%-- </c:forEach>--%>
-                            <%
+                                    for (Produto produtos : (List<Produto>) request.getAttribute("produtos")) {
+                                %> 
+                                <%--<c:forEach var="prod" items="${produtos}">  --%>              
+                                <option value="<%=produtos.getCodigo()%>" onselect=""><%=produtos.getCodigo()%>-<%=produtos.getDescricao()%> -R$ <%=produtos.getVlrUnit()%></option>  
+                                <%-- </c:forEach>--%>
+                                <%
 
-                                }
-                            %>
-                        </select>
+                                    }
+                                %>
+                            </select></form>
                     </td>
                     <td>
                         <p>Quantidade: </p><input type="text" name="quantidade" value="0" /><input type="submit"/>
@@ -72,9 +72,9 @@
 
                     </tr>
 
-                    <% ArrayList<Produto> prod1= (ArrayList<Produto>) request.getAttribute("produtoslist");
-                        if(prod1!=null){
-                        for (Produto produto : prod1) {
+                    <% ArrayList<Produto> prod1 = (ArrayList<Produto>) request.getAttribute("produtoslist");
+                        if (prod1 != null) {
+                            for (Produto produto : prod1) {
                     %>
                     <tr>
                         <td><%=produto.getDescricao()%></td>
@@ -82,8 +82,9 @@
                         <td>vlr*quantidade</td>
                     </tr>
                     <%
-                        }}
-                   %>
+                            }
+                        }
+                    %>
                 </table>
                 <tr>
                     <td>

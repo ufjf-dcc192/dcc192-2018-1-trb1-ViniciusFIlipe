@@ -14,7 +14,7 @@
     <body>
         <h1>BEM VINDO!!!</h1>
     <li><a href="novopedido.html">Novo Pedido</a></li>
-    <li><a href="lista.html">Lista de Pedidos</a></li>
+    <li><a href="listarpedidos.html">Lista de Pedidos</a></li>
             
     </body>
 </html>
