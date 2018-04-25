@@ -22,13 +22,13 @@
                 <tr>
                     <td>
                         <a>Mesa: </a><select name="mesa">
-                            <option>Selecione</option>
-                            <option>Mesa 1</option>
-                            <option>Mesa 2</option>
-                            <option>Mesa 3</option>
-                            <option>Mesa 4</option>
-                            <option>Mesa 5</option>
-                            <option>Mesa 6</option>
+                            <option value="0">Selecione</option>
+                            <option value="1">Mesa 1</option>
+                            <option value="2">Mesa 2</option>
+                            <option value="3">Mesa 3</option>
+                            <option value="4">Mesa 4</option>
+                            <option value="5">Mesa 5</option>
+                            <option value="6" >Mesa 6</option>
                         </select>
                     </td> 
                     <td>
