@@ -38,9 +38,11 @@ public class PedidosLista {
 
     }
 
-    public static void addNoPedido(String idComanda, String idItem, String quantidade) {
+    public static void addNoPedido(Pedido p) {
     
-    
+    pedidos.add(p);
+    setcodigo();
     
     }
+    
 }

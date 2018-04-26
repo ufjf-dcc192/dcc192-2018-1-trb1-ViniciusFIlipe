@@ -15,7 +15,7 @@ public class Pedido {
 
     private Integer id;
     private Integer idmesa;
-    private List<Produto> produto;
+    private List<ProdutoPedido> produtos;
     private String cliente;
     private String abertura;
     private String fechamento;
@@ -24,16 +24,18 @@ public class Pedido {
     public Pedido(Integer id, Integer idmesa, String cliente, String abertura) {
         this.id = id;
         this.idmesa = idmesa;
-        this.produto = null;
+        this.produtos = null;
         this.cliente = cliente;
         this.abertura = abertura;
     }
-   public Pedido(Integer idmesa, Integer quantidade, Produto produto) {
+    public Pedido(Integer idmesa, String cliente, String abertura) {
+        this.id = id;
         this.idmesa = idmesa;
-        this.produto = null;
+        this.produtos = null;
         this.cliente = cliente;
         this.abertura = abertura;
     }
+  
     public Integer getId() {
         return id;
     }
@@ -50,12 +52,12 @@ public class Pedido {
         this.idmesa = idmesa;
     }
 
-    public List<Produto> getProduto() {
-        return produto;
+    public List<ProdutoPedido> getProduto() {
+        return produtos;
     }
 
-    public void setProduto(List<Produto> produto) {
-        this.produto = produto;
+    public void setProduto(List<ProdutoPedido> produto) {
+        this.produtos = produto;
     }
 
     public String getCliente() {

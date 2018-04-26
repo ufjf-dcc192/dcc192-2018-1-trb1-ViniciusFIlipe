@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>BEM VINDO!!!</h1>
-    <li><a href="novopedido.html">Novo Pedido</a></li>
+    <li><a href="novopedido.html?idpedido=-1">Novo Pedido</a></li>
     <li><a href="listarpedidos.html">Lista de Pedidos</a></li>
             
     </body>

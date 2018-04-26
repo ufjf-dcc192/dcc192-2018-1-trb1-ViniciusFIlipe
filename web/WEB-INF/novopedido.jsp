@@ -4,6 +4,7 @@
     Author     : ice
 --%>
 
+<%@page import="Codigos.ProdutoPedido"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,11 +32,12 @@
             <p>Produto: </p> 
             <select name="itens" size="1">
                 <option>- Selecione -</option>
-                <%for(Produto produtos : (List<Produto>) request.getAttribute("produtos")) {%> 
+                <%for (Produto produtos : (List<Produto>) request.getAttribute("produtos")) {%> 
                 <option value="<%=produtos.getCodigo()%>" onselect=""><%=produtos.getCodigo()%>-<%=produtos.getDescricao()%> -R$ <%=produtos.getVlrUnit()%></option>  
                 <%}%>
             </select>
-            <p>Quantidade: </p><input type="text" name="quantidade" value="0" /><input type="submit"/>
+            <p>Quantidade: </p>
+            <input type="text" name="quantidade" value="0" /><input type="submit"/>
 
         </form>
         <table  border=1 >
@@ -54,32 +56,35 @@
                 </tr>
             </thead>
             <tbody>
-                <%--
-                                    <%
-                                       // for (Produto produtospedido :  request.getAttribute("produtos")) {
-                                    %> 
-                                    <tr>
-                                        <td><%=produto.getDescricao()%></td>
-                                        <td><%= request.getAttribute("quantidade")%></td>
-                                        <td>vlr*quantidade</td>
-                </tr>--%>
+
+                <%
+                    if ((List<ProdutoPedido>) request.getAttribute("produtospedido") != null) {
+                        for (ProdutoPedido produtospedido : (List<ProdutoPedido>) request.getAttribute("produtospedido")) {
+                %> 
+                <tr>
+                    <td><%=produtospedido.getProduto().getDescricao()%></td>
+                    <td><%=produtospedido.getQuantidade()%></td>
+                    <td><%=produtospedido.getProduto().getVlrUnit() * produtospedido.getQuantidade()%></td>
+                </tr>
                 <%
 
-                    // }
+                        
+                     }
+                    }
                 %>
 
-                <c:forEach items="${pedido.getProduto()}" var="item">
-                    <tr>
-                        <td>${item.getDescricao()}</td>
-                        <td>${item.value}</td>
-                        <td>${item.key.getNome()}</td>
-                        <td>${item.key.getValor()}</td>
-                        <td>${item.value*item.key.getValor()}</td>
-                        <c:if test="${comanda.getHoraFechamento() == null}">
+                <%-- <c:forEach items="${pedido.getProduto()}" var="item">
+                     <tr>
+                         <td>${item.getDescricao()}</td>
+                         <td>${item.value}</td>
+                         <td>${item.key.getNome()}</td>
+                         <td>${item.key.getValor()}</td>
+                         <td>${item.value*item.key.getValor()}</td>
+                         <c:if test="${comanda.getHoraFechamento() == null}">
                             <td><a href="remover-itens.html?id=${comanda.getId()}&id-item=${item.key.getId()}">Excluir</a></td>
-                        </c:if>
-                    </tr>
-                </c:forEach>
+                         </c:if>
+                     </tr>
+                 </c:forEach>--%>
             </tbody>
         </table>
         <p>Valor Total: </p><input type="text" name="vlrtotal" value="0" disabled="disabled" />

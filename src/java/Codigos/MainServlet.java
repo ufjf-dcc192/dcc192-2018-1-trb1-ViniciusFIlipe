@@ -7,6 +7,7 @@ package Codigos;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ice
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/index.html", "/novopedido.html", "/listarpedidos.html"})
+@WebServlet(name = "MainServlet", urlPatterns = {"/index.html", "/novopedido.html", "/listarpedidos.html","/insereproduto.html"})
 public class MainServlet extends HttpServlet {
 
     List<Produto> produtos = new ProdLista().getInstance();
@@ -28,17 +29,34 @@ public class MainServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ("/novopedido.html".equals(request.getServletPath())) {
-            //if ("-1".equals(request.getAttribute("id"))) {
-            
+            String idPedido = request.getParameter("idpedido");
+            if ("-1".equals(idPedido)) {
+                request.setAttribute("produtos", produtos);
+                RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/novopedido.jsp");
+                dispachante.forward(request, response);
+            }else {
+
+                // ProdutoPedido p = new ProdutoPedido(Integer.parseInt(idMesa), Integer.parseInt(quantidade), produtos.get(Integer.parseInt(idProd)));
+                // PedidosLista.getInstancePedidos().get(idPedido).request.setAttribute("produtos", produtos);
+                //RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/novopedido.jsp");
+                //dispachante.forward(request, response);
+            }
+        } else if ("/insereproduto.html".equals(request.getServletPath())) {
+
             String idProd = request.getParameter("itens");
             String idMesa = request.getParameter("mesa");
             String quantidade = request.getParameter("quantidade");
-            Pedido p = new Pedido(Integer.parseInt(idMesa),Integer.parseInt(quantidade),produtos.get(Integer.parseInt(idProd)));
-            
+            if (quantidade != null) {
+                ProdutoPedido p = new ProdutoPedido(Integer.parseInt(idMesa), Integer.parseInt(quantidade), produtos.get(Integer.parseInt(idProd)));
+
+                Pedido p1 = new Pedido(Integer.parseInt(idMesa), "Mesa " + idMesa, new Date().toString());
+                PedidosLista.getInstancePedidos().add(p1);
+                request.setAttribute("produtospedido", p1.getProduto());
+
+            }
             request.setAttribute("produtos", produtos);
             RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/novopedido.jsp");
             dispachante.forward(request, response);
-
         } else if ("/listarpedidos.html".equals(request.getServletPath())) {
             listarPedidos(request, response);
 
