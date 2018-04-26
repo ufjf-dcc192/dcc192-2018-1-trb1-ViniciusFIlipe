@@ -18,96 +18,73 @@
     </head>
     <body>
         <h1>Novo Pedido!</h1>
-        <form> <table>
-                <tr>
-                    <td>
-                        <a>Mesa: </a><select name="mesa">
-                            <option value="0">Selecione</option>
-                            <option value="1">Mesa 1</option>
-                            <option value="2">Mesa 2</option>
-                            <option value="3">Mesa 3</option>
-                            <option value="4">Mesa 4</option>
-                            <option value="5">Mesa 5</option>
-                            <option value="6" >Mesa 6</option>
-                        </select>
-                    </td> 
-                    <td>
+        <form method="POST"><a>Mesa: </a>
+            <select name="mesa">
+                <option value="0">Selecione</option>
+                <option value="1">Mesa 1</option>
+                <option value="2">Mesa 2</option>
+                <option value="3">Mesa 3</option>
+                <option value="4">Mesa 4</option>
+                <option value="5">Mesa 5</option>
+                <option value="6" >Mesa 6</option>
+            </select>
+            <p>Produto: </p> 
+            <select name="itens" size="1">
+                <option>- Selecione -</option>
+                <%for(Produto produtos : (List<Produto>) request.getAttribute("produtos")) {%> 
+                <option value="<%=produtos.getCodigo()%>" onselect=""><%=produtos.getCodigo()%>-<%=produtos.getDescricao()%> -R$ <%=produtos.getVlrUnit()%></option>  
+                <%}%>
+            </select>
+            <p>Quantidade: </p><input type="text" name="quantidade" value="0" /><input type="submit"/>
 
-                    </td>
-
-
-                </tr>
-                <tr>
-                    <td><form method="POST"> <p>Produto: </p> <select name="itens" size="1">
-                                <option>- Selecione -</option>
-                                <%
-
-                                    for (Produto produtos : (List<Produto>) request.getAttribute("produtos")) {
-                                %> 
-                                <%--<c:forEach var="prod" items="${produtos}">  --%>              
-                                <option value="<%=produtos.getCodigo()%>" onselect=""><%=produtos.getCodigo()%>-<%=produtos.getDescricao()%> -R$ <%=produtos.getVlrUnit()%></option>  
-                                <%-- </c:forEach>--%>
-                                <%
-
-                                    }
-                                %>
-                            </select></form>
-                    </td>
-                    <td>
-                        <p>Quantidade: </p><input type="text" name="quantidade" value="0" /><input type="submit"/>
-                    </td>
-                </tr>
-
-                <table  border=1 >
-                    <tr>
-                        <th>
-                            <p>Produto</p>
-                        </th>
-                        <th>
-                            <p>Quantidade</p>
-                        </th>
-                        <th>
-                            <p>Subtotal</p>
-                        </th>
-
-                    </tr>
-
-                    <% ArrayList<Produto> prod1 = (ArrayList<Produto>) request.getAttribute("produtoslist");
-                        if (prod1 != null) {
-                            for (Produto produto : prod1) {
-                    %>
-                    <tr>
-                        <td><%=produto.getDescricao()%></td>
-                        <td><%= request.getAttribute("quantidade")%></td>
-                        <td>vlr*quantidade</td>
-                    </tr>
-                    <%
-                            }
-                        }
-                    %>
-                </table>
-                <tr>
-                    <td>
-                        <p>Valor Total: </p><input type="text" name="vlrtotal" value="0" disabled="disabled" />
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
-
-                        <input type="submit" value="Salva" name="salvar" />
-                    </td>
-                    <td>
-                        <input type="submit" value="Limpa" name="limpar" />
-                    </td>
-                </tr>
-            </table>
         </form>
+        <table  border=1 >
+            <thead>
+                <tr>
+                    <th>
+                        <p>Produto</p>
+                    </th>
+                    <th>
+                        <p>Quantidade</p>
+                    </th>
+                    <th>
+                        <p>Subtotal</p>
+                    </th>
 
+                </tr>
+            </thead>
+            <tbody>
+                <%--
+                                    <%
+                                       // for (Produto produtospedido :  request.getAttribute("produtos")) {
+                                    %> 
+                                    <tr>
+                                        <td><%=produto.getDescricao()%></td>
+                                        <td><%= request.getAttribute("quantidade")%></td>
+                                        <td>vlr*quantidade</td>
+                </tr>--%>
+                <%
 
+                    // }
+                %>
 
-
-
+                <c:forEach items="${pedido.getProduto()}" var="item">
+                    <tr>
+                        <td>${item.getDescricao()}</td>
+                        <td>${item.value}</td>
+                        <td>${item.key.getNome()}</td>
+                        <td>${item.key.getValor()}</td>
+                        <td>${item.value*item.key.getValor()}</td>
+                        <c:if test="${comanda.getHoraFechamento() == null}">
+                            <td><a href="remover-itens.html?id=${comanda.getId()}&id-item=${item.key.getId()}">Excluir</a></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <p>Valor Total: </p><input type="text" name="vlrtotal" value="0" disabled="disabled" />
+        <input type="submit" value="Salva" name="salvar" />
+        <input type="submit" value="Limpa" name="limpar" />   
 
         <a href="index.html">Voltar</a>
     </body>

@@ -28,7 +28,12 @@ public class Pedido {
         this.cliente = cliente;
         this.abertura = abertura;
     }
-      
+   public Pedido(Integer idmesa, Integer quantidade, Produto produto) {
+        this.idmesa = idmesa;
+        this.produto = null;
+        this.cliente = cliente;
+        this.abertura = abertura;
+    }
     public Integer getId() {
         return id;
     }

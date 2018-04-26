@@ -19,29 +19,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ice
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/index.html", "/novopedido.html","/listarpedidos.html"})
+@WebServlet(name = "MainServlet", urlPatterns = {"/index.html", "/novopedido.html", "/listarpedidos.html"})
 public class MainServlet extends HttpServlet {
 
     List<Produto> produtos = new ProdLista().getInstance();
     ArrayList<Produto> prodlist = new ArrayList<>();
     List<Pedido> pedidos = new PedidosLista().getInstancePedidos();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ("/novopedido.html".equals(request.getServletPath())) {
-
+            //if ("-1".equals(request.getAttribute("id"))) {
+            
+            String idProd = request.getParameter("itens");
+            String idMesa = request.getParameter("mesa");
+            String quantidade = request.getParameter("quantidade");
+            Pedido p = new Pedido(Integer.parseInt(idMesa),Integer.parseInt(quantidade),produtos.get(Integer.parseInt(idProd)));
+            
             request.setAttribute("produtos", produtos);
-
             RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/novopedido.jsp");
             dispachante.forward(request, response);
 
         } else if ("/listarpedidos.html".equals(request.getServletPath())) {
             listarPedidos(request, response);
-            
-        }else{
-        RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/mainjsp.jsp");
-        dispachante.forward(request, response);}
 
-    }  
-     @Override
+        } else {
+            RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/mainjsp.jsp");
+            dispachante.forward(request, response);
+        }
+
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -52,10 +60,9 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
 
     private void listarPedidos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         request.setAttribute("pedidos", pedidos);
+        request.setAttribute("pedidos", pedidos);
         RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/listarpedidos.jsp");
         despachante.forward(request, response);
     }
