@@ -28,14 +28,17 @@ public class Pedido {
         this.cliente = cliente;
         this.abertura = abertura;
     }
-    public Pedido(Integer idmesa, String cliente, String abertura) {
-        this.id = id;
+
+    public Pedido(Integer idmesa, String cliente, String abertura, ProdutoPedido p) {
+
+        this.id = PedidosLista.getInstancePedidos().size() + 1;
         this.idmesa = idmesa;
-        this.produtos = null;
+
         this.cliente = cliente;
         this.abertura = abertura;
+        produtos.add(p);
     }
-  
+
     public Integer getId() {
         return id;
     }
@@ -83,5 +86,5 @@ public class Pedido {
     public void setFechamento(String fechamento) {
         this.fechamento = fechamento;
     }
-    
+
 }

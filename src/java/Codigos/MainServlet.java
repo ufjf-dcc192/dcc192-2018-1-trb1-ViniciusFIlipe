@@ -34,6 +34,8 @@ public class MainServlet extends HttpServlet {
                 request.setAttribute("produtos", produtos);
                 RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/novopedido.jsp");
                 dispachante.forward(request, response);
+                if(Integer.parseInt(request.getParameter("quantidade"))>0){
+                insereProduto(request,response);}
             }else {
 
                 // ProdutoPedido p = new ProdutoPedido(Integer.parseInt(idMesa), Integer.parseInt(quantidade), produtos.get(Integer.parseInt(idProd)));
@@ -49,7 +51,7 @@ public class MainServlet extends HttpServlet {
             if (quantidade != null) {
                 ProdutoPedido p = new ProdutoPedido(Integer.parseInt(idMesa), Integer.parseInt(quantidade), produtos.get(Integer.parseInt(idProd)));
 
-                Pedido p1 = new Pedido(Integer.parseInt(idMesa), "Mesa " + idMesa, new Date().toString());
+                Pedido p1 = new Pedido(Integer.parseInt(idMesa), "Mesa " + idMesa, new Date().toString(),p);
                 PedidosLista.getInstancePedidos().add(p1);
                 request.setAttribute("produtospedido", p1.getProduto());
 
@@ -83,5 +85,22 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("pedidos", pedidos);
         RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/listarpedidos.jsp");
         despachante.forward(request, response);
+    }
+
+    private void insereProduto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idProd = request.getParameter("itens");
+            String idMesa = request.getParameter("mesa");
+            String quantidade = request.getParameter("quantidade");
+            if (quantidade != null) {
+                ProdutoPedido p = new ProdutoPedido(Integer.parseInt(idMesa), Integer.parseInt(quantidade), produtos.get(Integer.parseInt(idProd)));
+
+                Pedido p1 = new Pedido(Integer.parseInt(idMesa), "Mesa " + idMesa, new Date().toString(),p);
+                PedidosLista.getInstancePedidos().add(p1);
+                request.setAttribute("produtospedido", p1.getProduto());
+
+            }
+            request.setAttribute("produtos", produtos);
+            RequestDispatcher dispachante = request.getRequestDispatcher("/WEB-INF/novopedido.jsp");
+            dispachante.forward(request, response);
     }
 }
